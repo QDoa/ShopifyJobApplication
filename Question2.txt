@@ -1,0 +1,30 @@
+SELECT COUNT(*) FROM Orders
+WHERE ShipperID IN 
+	(SELECT ShipperID 
+	 FROM Shippers 
+	 WHERE ShipperName = 'Speedy Express');
+Answer - 54
+
+SELECT LastName 
+FROM Employees
+WHERE EmployeeID IN 
+	(SELECT EmployeeID  
+	 FROM [Orders]
+	 GROUP BY EmployeeID 
+	 ORDER BY COUNT(EmployeeID) DESC LIMIT 1)
+Answer - Peacock
+
+
+SELECT ProductID 
+FROM [OrderDetails]
+WHERE OrderID IN 
+	(SELECT OrderID 
+	 FROM [Orders]
+	 WHERE CustomerID IN 
+		(SELECT CustomerID 
+		 FROM [Customers]
+		 WHERE Country = 'Germany'))
+GROUP BY ProductID
+ORDER BY Quantity DESC
+LIMIT 1
+Answer - ProductID 35
